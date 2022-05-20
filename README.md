@@ -1,3 +1,3 @@
-# Leetcode-Problem-Solving-SDE-Sheet
+# Leetcode-Problem-Solving
 
 Profile Link : https://leetcode.com/amansaini0003/
