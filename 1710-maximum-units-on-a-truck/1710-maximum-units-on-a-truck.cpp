@@ -1,25 +1,24 @@
+// method 2 - using count sort
+
 class Solution {
 public:
-    static bool comp(vector<int> arr1, vector<int> arr2){
-        if(arr1[1] > arr2[1])
-            return true;
-        return false;
-    }
-    int maximumUnits(vector<vector<int>>& nums, int truckSize) {
-        sort(nums.begin(), nums.end(), comp);
-        int val = 0;
-        for(int i=0; i<nums.size(); i++) {
-            if(truckSize <= 0)  break;
-            
-            if(nums[i][0] <= truckSize){
-                val += nums[i][0] * nums[i][1];
-                truckSize -= nums[i][0];
-            } else {
-                val += truckSize * nums[i][1];
-                truckSize = 0;                
-            }
+    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+        int count[1001] = {0};
+        int res = 0;
+        
+        for(vector<int> &box : boxTypes){
+            count[box[1]] += box[0];
         }
         
-        return val;
+        for(int units = 1000; units > 0; units--){
+            if(count[units] > 0) {
+                int fitIn = min(count[units], truckSize);
+                res += fitIn * units;
+                truckSize -= fitIn;
+                if(truckSize == 0)
+                    return res;
+            }
+        }
+        return res;
     }
 };
